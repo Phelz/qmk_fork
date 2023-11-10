@@ -457,7 +457,33 @@ __attribute__((weak)) bool rgb_matrix_indicators_kb(void) {
     return rgb_matrix_indicators_user();
 }
 
+// __attribute__((weak)) bool rgb_matrix_indicators_user(void) {
+//     return true;
+// }
+// #define NUM_PLAIN_LEDS 6
+// int plain_leds[NUM_PLAIN_LEDS] = {3, 5, 20, 24, 50};
+
+// void rgb_matrix_indicators_user(void) {
+
+// }
+
+// bool valueinarray(int val, int *arr, size_t n) {
+//     for(size_t i = 0; i < n; i++) {
+//         if(arr[i] == val)
+//             return true;
+//     }
+//     return false;
+// }
+
+// int exceptions_arr[14] = {0, 1, 2, 4, 9, 10, 19, 20, 36+0, 36+1, 9+36, 10+36, 19+36, 20+36};
+
 __attribute__((weak)) bool rgb_matrix_indicators_user(void) {
+    // for (int i=0; i<72; i++) {
+    //     if (valueinarray(i, exceptions_arr, 14)) {
+    //         continue;
+    //     }
+    //     rgb_matrix_set_color(i, HSV_AZURE);
+    // }
     return true;
 }
 

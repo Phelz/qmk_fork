@@ -34,40 +34,44 @@ KC_UNDO, KC_CUT, KC_COPY, KC_PASTE
 // Light combinations
 #define SET_INDICATORS(hsv) \
 		{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-     {35+0, 1, hsv}
-#define SET_UNDERGLOW(hsv) \
-		{1, 5, hsv}, \
-     {35+1, 5,hsv}
+     {36, 1, hsv}
+
+
 #define SET_NUMPAD(hsv)     \
-	{35+15, 5, hsv},\
-	{35+22, 3, hsv},\
-	{35+27, 3, hsv}
+	{36+15, 5, hsv},\
+	{36+22, 3, hsv},\
+	{36+27, 3, hsv}
+
+#define SET_LAYER_BUTTONS(hsv) \
+		{11-2+1, 1, hsv}, \
+		{36+11-2+1, 1, hsv}
+
+
 #define SET_NUMROW(hsv) \
-		{10, 2, hsv}, \
-		{20, 2, hsv}, \
-		{30, 2, hsv}, \
-	{35+ 10, 2, hsv}, \
-	{35+ 20, 2, hsv}, \
-	{35+ 30, 2, hsv}
-#define SET_INNER_COL(hsv)	\
-		{30, 4, hsv}, \
-	{35+ 30, 4, hsv}
+		{6-2, 1, hsv}, \
+		{7-2, 1, hsv}, \
+		{16-2, 1, hsv}, \
+		{17-2, 1, hsv}, \
+		{26-2, 1, hsv}, \
+		{27-2, 1, hsv}, \
+		{36+7-2, 1, hsv}, \
+		{36+16-2, 1, hsv}, \
+		{36+17-2, 1, hsv}, \
+		{36+26-2, 1, hsv}, \
+		{36+27-2, 1, hsv}
+
 
 #define SET_OUTER_COL(hsv) \
-		{7, 4, hsv}, \
-	{35+ 7, 4, hsv}
+		{0, 3, hsv}, \
+		{4, 1, hsv}, \
+     {36, 2, hsv}
 #define SET_THUMB_CLUSTER(hsv) 	\
-		{25, 2, hsv}, \
-	{35+ 25, 2, hsv}
-#define SET_LAYER_ID(hsv) 	\
-		{0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-     {35+0, 1, HSV_OVERRIDE_HELP(hsv, INDICATOR_BRIGHTNESS)}, \
-		{1, 5, hsv}, \
-     {35+1, 5, hsv}, \
-		{7, 4, hsv}, \
-	{35+ 7, 4, hsv}, \
-		{25, 2, hsv}, \
-	{35+ 25, 2, hsv}
+		{21-2, 2, hsv}, \
+		{36+21-2, 2, hsv}, \
+		{11-2, 1, hsv}, \
+	{36+ 11-2, 1, hsv}
+
+
 
 
 enum sofle_layers {
@@ -175,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_GRAVE, KC_HOME, SELWORD, KC_END, JOINLN, SRCHSEL,                  _______, _______,  _______, KC_UNDS, EQ2X,  KC_F12,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  _______,  _______,  SELLINE,   _______,   KC_WH_U, KC_PGUP,              _______, _______, _______,  _______, _______,   _______,
+  _______,  RGB_MODE_FORWARD,  SELLINE,   _______,   KC_WH_U, KC_PGUP,              _______, _______, _______,  _______, _______,   _______,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   _______,  _______,  _______,   _______,   KC_WH_D, KC_PGDN,     _______,  _______, _______,  _______,  _______,   _______,   _______,    _______,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
@@ -225,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
-  EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   QK_BOOT, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
@@ -296,58 +300,66 @@ _______, KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F6,                      K
 };
 
 #ifdef RGBLIGHT_ENABLE
+
+
+
 char layer_state_str[72];
 // Now define the array of layers. Later layers take precedence
 
 // QWERTY,
 // Light on inner column and underglow
 const rgblight_segment_t PROGMEM layer_qwerty_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_RED)
+    {0, 72, HSV_AZURE},
+  	SET_NUMROW(HSV_TEAL),
+    SET_THUMB_CLUSTER(HSV_MAGENTA),
+    SET_OUTER_COL(HSV_CORAL),
+    SET_LAYER_BUTTONS(HSV_TURQUOISE)
 );
 
 
+// // _NUM,
+// // Light on outer column and underglow
+// const rgblight_segment_t PROGMEM layer_num_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+// 	SET_LAYER_ID(HSV_TEAL)
 
-// _NUM,
-// Light on outer column and underglow
-const rgblight_segment_t PROGMEM layer_num_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_TEAL)
+// );
+// // _SYMBOL,
+// // Light on inner column and underglow
+// const rgblight_segment_t PROGMEM layer_symbol_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+// 	SET_LAYER_ID(HSV_BLUE)
 
-);
-// _SYMBOL,
-// Light on inner column and underglow
-const rgblight_segment_t PROGMEM layer_symbol_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_BLUE)
-
-    );
-// _COMMAND,
-// Light on inner column and underglow
-const rgblight_segment_t PROGMEM layer_command_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-  SET_LAYER_ID(HSV_PURPLE)
-);
+//     );
+// // _COMMAND,
+// // Light on inner column and underglow
+// const rgblight_segment_t PROGMEM layer_command_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+//   SET_LAYER_ID(HSV_PURPLE)
+// );
 
 //_NUMPAD
-const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_INDICATORS(HSV_ORANGE),
-    SET_UNDERGLOW(HSV_ORANGE),
-	SET_NUMPAD(HSV_BLUE),
-    {7, 4, HSV_ORANGE},
-    {25, 2, HSV_ORANGE},
-    {35+6, 4, HSV_ORANGE},
-    {35+25, 2, HSV_ORANGE}
-    );
+// const rgblight_segment_t PROGMEM layer_numpad_lights[] = RGBLIGHT_LAYER_SEGMENTS(
+// 	SET_INDICATORS(HSV_ORANGE),
+//     SET_UNDERGLOW(HSV_ORANGE),
+// 	SET_NUMPAD(HSV_BLUE),
+//     {7, 4, HSV_ORANGE},
+//     {25, 2, HSV_ORANGE},
+//     {35+6, 4, HSV_ORANGE},
+//     {35+25, 2, HSV_ORANGE}
+//     );
 // _SWITCHER   // light up top row
 const rgblight_segment_t PROGMEM layer_switcher_lights[] = RGBLIGHT_LAYER_SEGMENTS(
-	SET_LAYER_ID(HSV_GREEN),
-	SET_NUMROW(HSV_GREEN)
+    {0, 72, HSV_BLUE},
+	SET_NUMROW(HSV_TURQUOISE),
+    SET_THUMB_CLUSTER(HSV_TURQUOISE),
+    SET_OUTER_COL(HSV_TURQUOISE)
 );
 
 const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
     layer_qwerty_lights,
-	layer_num_lights,// overrides layer 1
-	layer_symbol_lights,
-    layer_command_lights,
-	layer_numpad_lights,
+	// layer_num_lights,// overrides layer 1
+	// layer_symbol_lights,
+    // layer_command_lights,
+	// layer_numpad_lights,
 	layer_switcher_lights  // Overrides other layers
 );
 
@@ -362,93 +374,103 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	rgblight_set_layer_state(5, layer_state_cmp(state, _SWITCH));
     return state;
 }
+
+
+
+
+
 void keyboard_post_init_user(void) {
     // Enable the LED layers
     rgblight_layers = my_rgb_layers;
 
-	rgblight_mode(10);// haven't found a way to set this in a more useful way
+
 
 }
 #endif
 
-#ifdef OLED_ENABLE
-
-static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
-        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
-    };
-
-    oled_write_P(qmk_logo, false);
-}
-
-static void print_status_narrow(void) {
-    // Print current mode
-    oled_write_P(PSTR("\n\n"), false);
-    oled_write_ln_P(PSTR("Dane\nEvans"), false);
-
-    oled_write_ln_P(PSTR(""), false);
-
-	//snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state)
 
 
-    switch (get_highest_layer(default_layer_state)) {
-        case _QWERTY:
-            oled_write_ln_P(PSTR("Qwrt"), false);
-            break;
-        case _COLEMAK:
-            oled_write_ln_P(PSTR("Clmk"), false);
-            break;
+
+// #ifdef OLED_ENABLE
+
+// static void render_logo(void) {
+//     static const char PROGMEM qmk_logo[] = {
+//         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+//         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+//         0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+//     };
+
+//     oled_write_P(qmk_logo, false);
+// }
+
+// static void print_status_narrow(void) {
+//     // Print current mode
+//     oled_write_P(PSTR("\n\n"), false);
+//     oled_write_ln_P(PSTR("Dane\nEvans"), false);
+
+//     oled_write_ln_P(PSTR(""), false);
+
+// 	//snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state)
 
 
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _COLEMAK:
-        case _QWERTY:
+//     switch (get_highest_layer(default_layer_state)) {
+//         case _QWERTY:
+//             oled_write_ln_P(PSTR("Qwrt"), false);
+//             break;
+//         case _COLEMAK:
+//             oled_write_ln_P(PSTR("Clmk"), false);
+//             break;
 
-        case _RAISE:
-            oled_write_P(PSTR("Raise"), false);
-            break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower"), false);
-            break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adj\n"), false);
-            break;
-        case _NUMPAD:
-            oled_write_P(PSTR("Nump\n"), false);
-            break;
-        case _SWITCH:
-            oled_write_P(PSTR("Swit\n"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
-    }
-}
 
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (is_keyboard_master()) {
-        return OLED_ROTATION_270;
-    }
-    return rotation;
-}
+//         default:
+//             oled_write_ln_P(PSTR("Undef"), false);
+//     }
+//     oled_write_P(PSTR("\n\n"), false);
+//     // Print current layer
+//     oled_write_ln_P(PSTR("LAYER"), false);
+//     switch (get_highest_layer(layer_state)) {
+//         case _COLEMAK:
+//         case _QWERTY:
+//             oled_write_P(PSTR("Qwrt"), false);
+//             break;
 
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        print_status_narrow();
-    } else {
-        render_logo();
-    }
-    return false;
-}
+//         case _RAISE:
+//             oled_write_P(PSTR("Raise"), false);
+//             break;
+//         case _LOWER:
+//             oled_write_P(PSTR("Lower"), false);
+//             break;
+//         case _ADJUST:
+//             oled_write_P(PSTR("Adj\n"), false);
+//             break;
+//         case _NUMPAD:
+//             oled_write_P(PSTR("Nump\n"), false);
+//             break;
+//         case _SWITCH:
+//             oled_write_P(PSTR("Swit\n"), false);
+//             break;
+//         default:
+//             oled_write_ln_P(PSTR("Undef"), false);
+//     }
+// }
 
-#endif
+// oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+//     if (is_keyboard_master()) {
+//         return OLED_ROTATION_270;
+//     }
+//     return rotation;
+// }
+
+// bool oled_task_user(void) {
+//     if (is_keyboard_master()) {
+//         print_status_narrow();
+//     } else {
+//         render_logo();
+//     }
+//     return false;
+// }
+
+// #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
